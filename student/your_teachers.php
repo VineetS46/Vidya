@@ -101,7 +101,7 @@
     </html>
 <?php
 
-use function PHPSTORM_META\elementType;
+// use function PHPSTORM_META\elementType;
 
     session_start();
 

@@ -2,9 +2,9 @@
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
-    require 'C:/wamp64/www/vidya/student/PHPMailer-master/src/Exception.php';
-    require 'C:/wamp64/www/vidya/student/PHPMailer-master/src/PHPMailer.php';
-    require 'C:/wamp64/www/vidya/student/PHPMailer-master/src/SMTP.php';
+    require 'C:/wamp/www/vidya/student/PHPMailer-master/src/Exception.php';
+    require 'C:/wamp/www/vidya/student/PHPMailer-master/src/PHPMailer.php';
+    require 'C:/wamp/www/vidya/student/PHPMailer-master/src/SMTP.php';
 
     function send_email($email,$subject,$message,$alert)
     {

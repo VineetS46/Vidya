@@ -1,5 +1,6 @@
 <?php
     session_start();
+    ob_start(); 
     if (!isset($_COOKIE["adlogin"])) {
         echo "<script>alert('its looks like you don't have sign in please kindly sign in')</script>";
         header("location:index.php");
@@ -143,6 +144,7 @@ rbac();
         // $s_time=$row["s_time"];
         // $e_time=$row["e_time"];
         // $message=$row["message"];
+        $id=$row["id"];
         $documents=$row["orders"];
 
 
@@ -166,7 +168,7 @@ rbac();
                     echo "contact: ".$scon."<br>";
                     // echo "age: ".$age."<br>";
                     // echo "message: ".$message."<br>";
-                    // echo $documents;
+                    echo $documents;
                 ?>
                 <br>
                 <form action="" method="post">
@@ -176,6 +178,7 @@ rbac();
                     <input type="hidden" value="<?php echo $documents;?>" name="img">
                     <input type="hidden" value="<?php echo $temail;?>" name="temail">
                     <input type="hidden" value="<?php echo $semail;?>" name="semail">
+                    <input type = "hidden" value="<?php echo $id; ?>"  name="id">
                 </form>
             </body>
         </html>
@@ -187,26 +190,12 @@ rbac();
         header("location:pay_doc.php");
     }
 
-    // if(array_key_exists("prank",$_POST))
-    // {
-    //     $i=0;
-    //     while($i<50)
-    //     {
-    //         $email=$_POST["email"];
-    //         $alert="mail sestudent";
-    //         $veri="verificarion complited";
-    //         $message=" now you can login at vidya.please fill free to access your account and if possible please give a review on our website";
-    //         $file="documents/".$_POST["img"];
-    //         $flag=send_email("aryanrajyaguru22@gmail.com",$veri,$message,$alert,$next_file);
-    //     }
-    //     echo "<script>alert('its looks like you don't have sign in please kindly sign in')</script>";
-
-    // }
 
     if(array_key_exists("verified",$_POST))
     {
+        print_r($_SESSION);
         $email=$_POST["temail"];
-        $id=$_SESSION["id"];
+        $id=$_POST["id"];
         $file="documents/".$_POST["img"];
         $email1=$email;
         $alert1="done";
@@ -221,17 +210,18 @@ rbac();
             $semail=$_POST["semail"];
             send_email($semail,$veri,$message,$alert);
             $query = "UPDATE requests SET orders=0,pay=1 WHERE id='$id';"; 
-            // $fire = mysqli_query($con, $query);
+            $fire = mysqli_query($con, $query);
             if (!$fire) {
                 echo mysqli_error($con);
             }
-            echo $id;
-            print_r($_SESSION);
-            // unlink($file);
+            // echo $id;
+            // print_r($_SESSION);
+            unlink($file);
             // $_SESSION["done"]=1;
         }
-        // header("location:verification");
-        // header("location:Refresh:0");
+        header("location:Refresh:0");
+        exit();
+        ob_end_flush();
         ?>
             <script>
                 location

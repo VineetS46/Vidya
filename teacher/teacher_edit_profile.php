@@ -15,7 +15,7 @@ if (!isset($_COOKIE["tlogin"])) {
     $sub=$row["subjects"];
     $sub_arr=explode("|",$sub);
     
-    $data=file_get_contents("C:/wamp64/www/vidya/admin/sub.txt");
+    $data=file_get_contents("C:/wamp/www/vidya/admin/sub.txt");
     $data_arr=explode(",",$data);
 
     // print_r($sub_arr);

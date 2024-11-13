@@ -102,7 +102,7 @@ footer {
 <?php
 session_start();
 
-if(!isset($_COOKIE["login"]))
+    if(!isset($_COOKIE["login"]))
     {
         echo "<script>alert('It's looks like you don't have sign in please kindly sign in')</script>";
         header("location:index.php");
@@ -260,12 +260,14 @@ if(!isset($_COOKIE["login"]))
 
     $email=$_COOKIE["login"];
     $con=mysqli_connect("localhost","root","","vidya");
-    $query="SELECT * FROM requests WHERE semail='$email' AND unread = 0 AND rejecte = 0 AND pay = 0 AND student_rejetct_pay=0 AND pay_veri=0;";
+    $query="SELECT * FROM requests WHERE semail='$email' AND unread = 1 AND rejecte = 0 AND pay = 0 AND student_rejetct_pay=0 AND pay_veri=0;";
     $fire=mysqli_query($con,$query);
     if(!$fire)
     {
         echo mysqli_error($con);
     }
+
+    echo $query;
 
     $sum=0;
     while($row=mysqli_fetch_assoc($fire))

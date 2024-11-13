@@ -5,7 +5,7 @@ if (!isset($_COOKIE["login"])) {
 }
 
 // echo $_COOKIE["login"];
-$data = file_get_contents("C:/wamp64/www/vidya/admin/sub.txt");
+$data = file_get_contents("C:/wamp/www/vidya/admin/sub.txt");
 $data_arr = explode(",", $data);
 // print_r($data_arr);
 ?>
