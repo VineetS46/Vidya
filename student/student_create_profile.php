@@ -88,7 +88,7 @@
                 if($file_size < 5242880)//5242880 byts = 5mb
                 {
                     $file_new_name=uniqid('',true).".".$file_ex;
-                    $file_destination="C:/wamp64/www/vidya/student/pro_pic/" . $file_new_name;
+                    $file_destination="C:/xampp/htdocs/vidya/student/pro_pic/" . $file_new_name;
 
                     move_uploaded_file($file_tmp_name,$file_destination);
                     return $file_new_name;

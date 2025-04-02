@@ -107,7 +107,7 @@ footer {
     left: 50%;
     transform: translate(-50%,3%);
     background-color: #fff;
-    padding: 50px 60px 70px;
+    /* padding: -1px 60px 70px; */
     text-align: center;
     border: 1px solid #ccc;
     border-radius: 5px;

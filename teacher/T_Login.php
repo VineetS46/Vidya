@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="css/t_login2.css">
 </head>
 
-<body>
+<body style="background-image: url('s.jpg'); background-repeat: no-repeat;
+   background-size: cover;">
     <div id="" name="" class="cont">
         <div class="f_box">
             <form action="" method="POST">
@@ -20,8 +21,8 @@
                     <input type="submit" value="Login" name="login">
                     <input type="submit" value="Sign up" name="sign_up">
                 </div>
-                <input type="submit" value="student" name="student" class="btn">
-                Ferget password <a href="reset.php">reset</a>
+                <input type="submit" value="student" name="student" class="btn"><br>
+                Forget password <a href="reset.php">RESET</a>
 
             </form>
         </div>

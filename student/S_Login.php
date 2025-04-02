@@ -6,7 +6,8 @@
     <link href="css/S_Login_style.css" rel="stylesheet" type="text/css">
 </head>
 
-<body>
+<body style="background-image: url('s.jpg'); background-repeat: no-repeat;
+   background-size: cover;">
     <div id="" name="" class="Cont">
         <div class="f_box">
             <form action="" method="POST">

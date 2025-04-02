@@ -15,7 +15,7 @@ if (!isset($_COOKIE["tlogin"])) {
     $sub=$row["subjects"];
     $sub_arr=explode("|",$sub);
     
-    $data=file_get_contents("C:/wamp/www/vidya/admin/sub.txt");
+    $data=file_get_contents("C:/xampp/htdocs/vidya/admin/sub.txt");
     $data_arr=explode(",",$data);
 
     // print_r($sub_arr);
@@ -41,7 +41,7 @@ if (!isset($_COOKIE["tlogin"])) {
             echo mysqli_error($con);
         }
         $de_img=$row["profile"];
-        $depath="C:/wamp64/www/vidya/teacher/pro_pic/". $de_img;
+        $depath="C:/xampp/htdocs/vidya/teacher/pro_pic/". $de_img;
         unlink($depath);
     }
 ?>
@@ -247,12 +247,12 @@ footer {
                 if($file_size < 2097152)//5242880 byts = 2mb
                 {
                     $file_new_name=uniqid('',true).".".$file_ex;
-                    $file_destination="C:/wamp64/www/vidya/teacher/pro_pic/". $file_new_name;
+                    $file_destination="C:/xampp/htdocs/vidya/teacher/pro_pic/". $file_new_name;
 
                     move_uploaded_file($file_tmp_name,$file_destination);
 
                     $de_img=$row["profile"];
-                    $depath="C:/wamp64/www/vidya/teacher/pro_pic/". $de_img;
+                    $depath="C:/xampp/htdocs/vidya/teacher/pro_pic/". $de_img;
 
                     // echo $file_new_name;
 

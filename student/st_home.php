@@ -5,7 +5,7 @@ if (!isset($_COOKIE["login"])) {
 }
 
 // echo $_COOKIE["login"];
-$data = file_get_contents("C:/wamp/www/vidya/admin/sub.txt");
+$data = file_get_contents("C:/xampp/htdocs/vidya/admin/sub.txt");
 $data_arr = explode(",", $data);
 // print_r($data_arr);
 ?>
@@ -79,7 +79,7 @@ $data_arr = explode(",", $data);
 
                 <!-- timing -->
 
-                <label>Your preafer timing :</label><br>
+                <label>Your prefer timing :</label><br>
                 <label>From:</label>
                 <input type="time" name="s_time" id="">
                 <br>
@@ -291,7 +291,7 @@ if (isset($_POST["show"]) && isset($_POST["s_time"]) && isset($_POST["e_time"]))
     }
 }
 ?>
-    <footer>
+    <!-- <footer>
         <label for="" class="make">Devloped in India❤️</label>
         <label for="" class="cc">Copyright &#169 2023 Vidya. All rights reserved</label> 
         <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSKkkFSHDKZFJrpNKpjVgDhKKLLSXjMqnsnPwTWDGZmHVLdPMGtXlBfjMTBNTCWnRVqmkBzm">
@@ -300,7 +300,7 @@ if (isset($_POST["show"]) && isset($_POST["s_time"]) && isset($_POST["e_time"]))
         <a href="">
             <img align="right" src="icons/linkedin.png" alt="" height="40" width="40" class="img">
         </a>
-    </footer>
+    </footer> -->
 </body>
 
 </html>

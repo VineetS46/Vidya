@@ -32,7 +32,7 @@
         }
 
         $de_img=$row["profile"];
-        $depath="C:/wamp64/www/vidya/student/pro_pic/". $de_img;
+        $depath="C:/xampp/htdocs/vidya/student/pro_pic/". $de_img;
         unlink($depath);
 
     }
@@ -166,11 +166,11 @@ footer {
             <input type="number" name="st_con" value="<?php echo $row["st_con"]; ?>">
             <br><br>
 
-            <label for="">Perent's number:</label><br>
+            <label for="">Parent's number:</label><br>
             <input type="number" name="p_number" value="<?php echo $row["p_st_con"]; ?>">
             <br><br>
 
-            <label for="">location pin code:</label><br>
+            <label for="">Location pin code:</label><br>
             <input type="text" name="location" value="<?php echo $row["location"];?>">
             <br><br>
 
@@ -223,12 +223,12 @@ footer {
                 if($file_size < 2097152)//5242880 byts = 2mb
                 {
                     $file_new_name=uniqid('',true).".".$file_ex;
-                    $file_destination="C:/wamp64/www/vidya/student/pro_pic/". $file_new_name;
+                    $file_destination="C:/xampp/htdocs/vidya/student/pro_pic/". $file_new_name;
 
                     move_uploaded_file($file_tmp_name,$file_destination);
 
                     $de_img=$row["profile"];
-                    $depath="C:/wamp64/www/vidya/student/pro_pic/". $de_img;
+                    $depath="C:/xampp/htdocs/vidya/student/pro_pic/". $de_img;
 
                     // echo $file_new_name;
 
@@ -277,21 +277,25 @@ footer {
 
     
 
-    if(isset($_POST["add"]))
-    {
-        if($row["password"]==$_POST["password"])
-        {
-            uplode();
-        }
-        else
-        {
-            echo "<script>alert('Please try again with the write password.')</script>";
-        }
-    }
+    // if(isset($_POST["add"]))
+    // {
+    //     if($row["password"]==$_POST["password"])
+    //     {
+    //         uplode();
+    //     }
+    //     else
+    //     {
+    //         echo "<script>alert('Please try again with the write password.')</script>";
+    //     }
+    // }
 
     if(array_key_exists("update",$_POST) && ($_POST["password"]==$row["password"]))
     {
-        uplode();
+        if(array_key_exists("profile",$_POST))
+        {
+            uplode();
+        }
+        // uplode();
 
         // data from form
         $fname=$_POST["name"];

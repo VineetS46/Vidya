@@ -2,9 +2,9 @@
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
-    require 'C:/wamp/www/vidya/admin/PHPMailer-master/src/Exception.php';
-    require 'C:/wamp/www/vidya/admin/PHPMailer-master/src/PHPMailer.php';
-    require 'C:/wamp/www/vidya/admin/PHPMailer-master/src/SMTP.php';
+    require 'C:/xampp/htdocs/vidya/admin/PHPMailer-master/src/Exception.php';
+    require 'C:/xampp/htdocs/vidya/admin/PHPMailer-master/src/PHPMailer.php';
+    require 'C:/xampp/htdocs/vidya/admin/PHPMailer-master/src/SMTP.php';
 
     $flag=0;
 

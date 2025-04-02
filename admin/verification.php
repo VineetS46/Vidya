@@ -1,5 +1,6 @@
 <?php
     session_start();
+    ob_start();
     if (!isset($_COOKIE["adlogin"])) {
         echo "<script>alert('its looks like you don't have sign in please kindly sign in')</script>";
         header("location:index.php");
@@ -236,3 +237,6 @@ rbac();
     <script src="assets/js/custom.js"></script>
 </body>
 </html>
+<?php
+    ob_end_flush();
+?>

@@ -1,354 +1,218 @@
-<html>
-    <head>
-        <title>Pay</title>
-        <link rel="stylesheet" href="css/pay.css">
-    </head>
+<?php
+require 'vendor/autoload.php'; // Include Stripe PHP library
 
+\Stripe\Stripe::setApiKey('sk_test_51N5EO8SDb10zWUfws82N0nBPWgOV8B843TnGm7Mvs3RsvVWOkjPLInk3ZGsNIuLIUaMWQU2yd8UDKBTWkRQNYyVV00nJhDeXLD'); // Replace with your Stripe Secret Key
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $amount = htmlspecialchars($_POST['amount']); // Amount in USD
+    $name = htmlspecialchars($_POST['name']);
+    $email = htmlspecialchars($_POST['email']);
+
+    if (!empty($amount) && !empty($name) && !empty($email)) {
+        try {
+            // Create a Stripe Checkout Session
+            $session = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                    'price_data' => [
+                        'currency' => 'usd',
+                        'product_data' => [
+                            'name' => 'Payment for ' . $name,
+                        ],
+                        'unit_amount' => $amount * 100, // Amount in cents
+                    ],
+                    'quantity' => 1,
+                ]],
+                'mode' => 'payment',
+                'customer_email' => $email,
+                'success_url' => 'http://localhost/Vidya/student/success.php',
+                'cancel_url' => 'http://localhost/Vidya/student/cancel.php',
+            ]);
+
+            // Redirect to Stripe Checkout
+            header("Location: " . $session->url);
+            exit;
+        } catch (Exception $e) {
+            $message = "Error: " . $e->getMessage();
+        }
+    } else {
+        $message = "All fields are required.";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stripe Checkout</title>
+    
     <style>
-    ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 2px;
-  margin-left: -0.5%;
-  margin-right: -0.45%;
-  margin-top: -0.5%;
-  overflow: hidden;
-  background-color: #333;
-  position: sticky;
-  top: 0;
-  font-family: Arial, Helvetica, sans-serif;
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    height: 100vh; /* Full viewport height */
+}
+
+.checkout-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: 0; /* Remove any margin to ensure proper centering */
+    position: absolute;
+    left: 550px;
+}
+        .checkout-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .checkout-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .checkout-container label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .checkout-container input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .checkout-container button {
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .checkout-container button:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .cont{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.container {
+  width: 80%;
+  max-width: 1200px;
+  margin-top: 70px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 3px 3px 10px 8px rgb(0 0 0 / 10%);
+  border-radius: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-style: bold;
+}
+ul {
+list-style-type: none;
+margin: 0;
+margin-bottom: 2%;
+padding: 0;
+/* margin-left: -0.5%;
+margin-right: -0.5%;
+margin-top: -0.5%; */
+overflow: hidden;
+background-color: #333;
+position: sticky;
+top: 0;
+font-family: Arial, Helvetica, sans-serif;
 }
 
 li {
-  float: left;
-  /* border-right: 1px solid #bbb; */
-  text-transform: uppercase;
-  font-size: 0.88rem;
+float: left;
+/* border-right: 1px solid #bbb; */
+font-size: 0.88rem;
+text-transform: uppercase;
+border: none;
 }
 
 li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+display: block;
+color: white;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
 }
 li:last-child {
-  border-right: none;
+border-right: none;
 }
 
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-  background-color: #111;
+background-color: #111;
 }
 
 .active {
-  background-color: #04AA6D;
+  /* background-color: #04AA6D; */
 }
 .logout
 {
-    background-color: red;
-    float:right;
+  background-color: red;
+  float:right;
 }
-footer {
-    text-align: center;
-    padding-top: 10px;
-    background-color: #333333;
-    color: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 40px;
-    margin-left: -8px;
-    /* padding-left: -10px; */
-    text-align: center;  
-    padding-bottom: 10px;
-    /* Height of the footer */
-}
-.img
-{
-    /* align: right */
-    margin-right: 50px;
-    margin-bottom: 10px;
-}
-.make{
-    float: left;
-    padding-left: 10px;
-    padding-top: 8px;
-}
-.cc
-{
-    padding-right: 5%;
-}
-</style>
-    <body>
 
-        <div class="cont">
+    </style>
+</head>
+<body>
+<div class="cont">
         <ul>
           <li><a href="index.php">Home</a></li>
           <li><a href="st_home.php">Find teacher</a></li>
           <li><a href="your_teachers.php">Your teacher</a></li>
           <li><a href="rejected_requests.php">Rejected request</a></li>
-          <li><a href="student_edit_profile.php">Edit profile</a></li>
-          <li class="active"><a href="pay.php">Pay</a></li>
+          <li class="active"><a href="student_edit_profile.php">Edit profile</a></li>
+          <li><a href="pay.php">Pay</a></li>
           <li class="logout"><a href="logout.php">Log out</a></li>
+
         </ul>
-        <form action="" method="post">
-            <!-- <input type="submit" name="profile" value="your profile" id="profile"><hr> -->
+    <div style="align:center" class="checkout-container">
+        <h2>Stripe Checkout</h2>
+        <?php if (!empty($message)): ?>
+            <div class="message <?php echo isset($success) && $success ? 'success' : 'error'; ?>">
+                <?php echo $message; ?>
+            </div>
+        <?php endif; ?>
+        <form method="POST" action="">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="amount">Amount (USD)</label>
+            <input type="number" id="amount" name="amount" required>
+
+            <button type="submit">Proceed to Payment</button>
         </form>
-    </body>
+    </div>
+</body>
 </html>
-<?php
-session_start();
-
-    if(!isset($_COOKIE["login"]))
-    {
-        echo "<script>alert('It's looks like you don't have sign in please kindly sign in')</script>";
-        header("location:index.php");
-    } 
-
-    include "send_mail.php";
-
-    function update($id)// updates student table
-    {
-        $con=mysqli_connect("localhost","root","","vidya");
-
-        $query="SELECT * FROM requests WHERE unread = 0 AND rejecte = 0 AND pay=0 AND id=$id;";
-        $fire=mysqli_query($con,$query);
-        if(!$fire)
-        {
-            echo mysqli_error($con);
-        }
-
-        $row=mysqli_fetch_assoc($fire);
-
-        $tmail=$row["temail"];// teacher email
-        $smail=$row["semail"];//student mail
-        //for updating teacher in student table 
-        $query2="SELECT teachers FROM  student WHERE  email='$smail';";//selects name from student table
-        
-        $fire2=mysqli_query($con,$query2);
-        if(!$fire2)
-        {
-            echo mysqli_error($con);
-        }
-        $st=mysqli_fetch_assoc($fire2);
-        
-        if($st["teachers"]==null)
-        {
-            $teachers=explode('|',$st["teachers"]);//$ teacher is an array now
-            array_pop($teachers);
-            array_push($teachers,"$tmail");
-            $itea=implode('|',$teachers);
-        }
-        else if($st["teachers"]!=null)
-        {
-            $teachers=explode('|',$st["teachers"]);//$ teacher is an array now
-            array_push($teachers,"$tmail");
-            $itea=implode('|',$teachers);
-        }
-        $update="UPDATE student SET teachers='$itea' WHERE email='$smail';";
-        
-        //for updating student in teacher table
-        $fire_update=mysqli_query($con,$update);
-        if(!$fire_update)
-        {
-            echo mysqli_error($con);
-        }
-
-        $query1="SELECT students FROM  teacher WHERE  email='$tmail';";//selects name from teacher table
-        $fire1=mysqli_query($con,$query1);
-        if(!$fire1)
-        {
-            echo mysqli_error($con);
-        }
-        $te=mysqli_fetch_assoc($fire1);
-
-        if($te["students"]==null)
-        {
-            $students=explode('|',$te["students"]);//$ teacher is an array now
-            array_pop($students);
-            array_push($students,"$smail");
-            $stu=implode('|',$students);
-        }
-        else if($te["students"]!=null)
-        {
-            $students=explode('|',$te["students"]);//$ teacher is an array now
-            array_push($students,"$smail");
-            $stu=implode('|',$students);
-        }
-        $update_student="UPDATE teacher SET students='$stu' WHERE email='$tmail';";
-
-        $fire_update=mysqli_query($con,$update_student);
-        if(!$fire_update)
-        {
-            echo mysqli_error($con);
-        }
-        
-    }
-    
-    if(array_key_exists("pay",$_POST))
-    {
-        
-        // $email=$_POST["temail"];
-        // $subject="A new student for you";
-        // $message="Hear is your new student ";
-        // $alert="payment seccessful.";
-        // $flag=send_email($email,$subject,$message,$alert);
-        // if($flag==1)
-        // {
-        //     // echo "gdf";
-            // $id=$_POST["id"];
-        //     update($id);
-        //     $con=mysqli_connect("localhost","root","","vidya");
-        //     $update="UPDATE requests SET pay = 1 WHERE id ='$id';";
-        //     $fire=mysqli_query($con,$update);
-        //     if(!$update)
-        //     {
-        //         echo mysqli_error($con);
-        //     }
-        // }
-        $_SESSION["id"]= $_POST["id"];           
-        header("location:payment.php"); 
-    } 
-
-    if(array_key_exists("cancel",$_POST))
-    {
-        $id=$_POST["id"];
-        $con=mysqli_connect("localhost","root","","vidya");
-        $update="UPDATE requests SET student_rejetct_pay = 1 WHERE id ='$id';";
-        $fire=mysqli_query($con,$update);
-        if(!$update)
-        {
-            echo mysqli_error($con);
-        }
-        else
-        {
-            echo "<script>alert('Payment cancelled.');</script>";
-        }
-    }
-    
-
-    if(array_key_exists("profile",$_POST))
-    {
-        header("location:student_profile.php");
-    } 
-
-    if(array_key_exists("try",$_POST))
-    {
-        // header("location:student_profile.php");
-        echo $_POST["temail"];
-        // echo $_POST["id"];
-        // $id=$_POST["id"];
-        // $connection=mysqli_connect("localhost","root","","vidya");
-        // $query="SELECT * FROM requests where id='$id';";
-        // $fire_teacherdata=mysqli_query($connection,$query);
-        // if(!$fire_teacherdata)
-        // {
-        //     echo mysqli_error($connection);
-        // }
-        // $getdata=mysqli_fetch_assoc($fire_teacherdata);
-
-        // // header("location:student_profile.php");
-        // $email=$getdata["temail"];
-
-        // echo $email;
-    } 
-
-    
-
-    $email=$_COOKIE["login"];
-    $con=mysqli_connect("localhost","root","","vidya");
-    $query="SELECT * FROM requests WHERE semail='$email' AND unread = 1 AND rejecte = 0 AND pay = 0 AND student_rejetct_pay=0 AND pay_veri=0;";
-    $fire=mysqli_query($con,$query);
-    if(!$fire)
-    {
-        echo mysqli_error($con);
-    }
-
-    echo $query;
-
-    $sum=0;
-    while($row=mysqli_fetch_assoc($fire))
-    {
-        echo "<div class='f_box'>";
-        $id=$row["id"];
-        $temail=$row["temail"];
-        // $teacher_arr=explode('|',$row["temail"]);
-        // $i=0;
-        // while($i<sizeof($teacher_arr))
-        // {
-            $select_from_requests="SELECT rating from requests where temail='$temail';";
-            $fire_select_requests=mysqli_query($con,$select_from_requests);
-            $no_of_row=mysqli_num_rows($fire_select_requests);
-            $flag=0;
-
-            if($no_of_row>0)
-            {
-                while($row_select=mysqli_fetch_assoc($fire_select_requests))
-                {
-                    $no_row=mysqli_num_rows($fire_select_requests);
-                    $sum+=$row_select["rating"];
-                    $avg=$sum/$no_row;
-                }
-                $count=mysqli_num_rows($fire_select_requests);
-                $flag=1;
-            }
-            $select_teacher="SELECT * FROM teacher WHERE email='$temail';";
-            $fire_select_teacher=mysqli_query($con,$select_teacher);
-            if(!$fire_select_teacher)
-            {
-                echo mysqli_error($con);
-            }
-            $data=mysqli_fetch_assoc($fire_select_teacher);
-            if ($data!=null) 
-            {
-                // echo "<hr>";
-                echo "Name of teacher is: ".$data["name"]."<br><br>Bio: ". $data["bio"] ."<br><br>Subject: ". $row["subject"] ."<br><br>fees: ".$row["price"]."<br><br>";
-                if($flag==1)
-                {
-                    echo "<br>total rating: " . round($avg,2) ." number of rating ".$count;
-                }
-                else
-                {
-                    echo "<br>This teacher is new at this site";
-                }
-            ?>
-            <html>
-                <body>
-                    <form action="" method="post">
-                        <input type="submit" name="pay" value="Pay" id="pay">
-                        <input type="submit" name="cancel" value="Cancel" id="cancel" style="background-color: #cc0000;">
-                        <!-- <input type="submit" name="try" value="try" id="cancel"> -->
-                        <input type="hidden" name="id" value="<?php echo $id ?>">
-                        <input type="hidden" name="temail" value="<?php echo $temail ?>">
-                    </form>
-                </body>
-            </html>
-            <?php
-                // echo "----------------------------";
-
-            }
-            else
-            {
-                // echo "there is no teachers";
-                echo "<script>alert('There is no teachers')</script>";
-
-            }
-            // $i++;
-        // }
-    }
-    echo "</div></div>";
-?>
-<footer>
-        
-        <label for="" class="cc">Copyright &#169 2023 Vidya. All rights reserved</label> 
-        <label for="" class="make">Devloped in India❤️</label>
-        <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSKkkFSHDKZFJrpNKpjVgDhKKLLSXjMqnsnPwTWDGZmHVLdPMGtXlBfjMTBNTCWnRVqmkBzm">
-            <img align="right" src="icons/gmail.png" alt="" height="40" width="40" class="img">
-        </a>
-        <a href="">
-            <img align="right" src="icons/linkedin.png" alt="" height="40" width="40" class="img">
-        </a>
-    </footer>

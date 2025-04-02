@@ -44,6 +44,39 @@ function profile()
 </head>
 <style>
 
+.student-container {
+    display: flex;
+    align-items: center; /* Vertically aligns the content */
+    justify-content: space-between; /* Adds space between the details and the image */
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+.student-details {
+    flex: 1; /* Takes up remaining space */
+    margin-right: 20px; /* Adds spacing between the details and the image */
+}
+
+.student-image {
+    flex-shrink: 0; /* Prevents the image from shrinking */
+}
+
+.imgpro {
+    max-width: 300px; /* Adjust the size of the image */
+    height: auto; /* Maintains the aspect ratio */
+    border-radius: 50%; /* Makes the image circular */
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 </style>
 <body>
     <div>
@@ -60,18 +93,24 @@ function profile()
 </body>
 </html>
 
-<?php
- //fetches raw in associtive array
- 
- echo "<p class='container'>Name: " . $row["name"] . "<br><br>";
- echo "Standard : ", $row["std"] . "<br><br>";
- echo "Your Contect Number: " . $row["st_con"] . "<br><br>";
- echo "Your Perents Contact Number: " . $row["p_st_con"] . "<br><br>";
- echo "Your Location: " . $row["location"] . "<br><br>";
- echo "Your Email is " . $row["email"]. "<br>";
- ?>
+<div class="student-container">
+    <div class="student-details">
+        <?php
+        //fetches raw in associative array
+        echo "<p>Name: " . $row["name"] . "<br><br>";
+        echo "Standard: " . $row["std"] . "<br><br>";
+        echo "Your Contact Number: " . $row["st_con"] . "<br><br>";
+        echo "Your Parents Contact Number: " . $row["p_st_con"] . "<br><br>";
+        echo "Your Location: " . $row["location"] . "<br><br>";
+        echo "Your Email is: " . $row["email"] . "<br></p>";
+        ?>
+    </div>
+    <div class="student-image">
+        <img src="pro_pic/<?php profile(); ?>" class="imgpro">
+    </div>
+</div>
  <body>
-     <img src="pro_pic/<?php profile(); ?>" class="imgprof"></p>
+     <!-- <img src="pro_pic/" class="imgpro"></p> -->
  </body>
     <form action="" method="post">
         <br>
@@ -105,7 +144,7 @@ function profile()
         <a href="">
             <img align="right" src="icons/linkedin.png" alt="" height="40" width="40" class="img">
         </a><br>
-        <img src="icons/vidya.png" alt="" height="50" width="50>
+        <!-- <img src="icons/vidya.png" alt="" height="50" width="50"> -->
 
     </footer>
 </body>

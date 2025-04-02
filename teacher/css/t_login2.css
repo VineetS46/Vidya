@@ -14,8 +14,8 @@ body {
     width: 90%;
     max-width: 450px;
     position: absolute;
-    /* top: 1%; */
-    left: 50%;
+    top: 0%;
+    left: 800px; 
     transform: translate(-50%,20%);
     /* margin: auto; */
     background-color: #fff;

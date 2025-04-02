@@ -139,7 +139,7 @@ function uplode()
             if($file_size < 5242880)//5242880 byts = 5mb
             {
                 $file_new_name=uniqid('',true).".".$file_ex;
-                $file_destination="C:/wamp/www/vidya/admin/reciepts/" . $file_new_name;
+                $file_destination="C:/xampp/htdocs/vidya/admin/reciepts/" . $file_new_name;
 
                 move_uploaded_file($file_tmp_name,$file_destination);
                 return $file_new_name;
