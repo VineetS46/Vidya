@@ -33,7 +33,7 @@
                     <!-- <input type="submit" name="login" value="Login" /> -->
                     <!-- <input type="submit" name="try" value="try" /> -->
                 </div>
-                <label for="">allrady has a account </label><a href="T_Login">Login</a>
+                <label for="">allrady has a account </label><a href="T_Login.php">Login</a>
             </form>
         </div>
     </div>

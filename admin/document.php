@@ -4,6 +4,8 @@
         echo "<script>alert('its looks like you don't have sign in please kindly sign in')</script>";
         header("location:index.php");
     }
+
+    // print_r($_SESSION);
     function rbac()
 {
     $email=$_COOKIE["adlogin"];
@@ -36,6 +38,7 @@
     }
 }
 // rbac();
+print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -113,7 +116,7 @@
                   <hr />
                 <div class="row">
                     <div class="col-lg-12 ">
-        <iframe src="documents/<?php echo $_SESSION["img"]; ?>" frameborder="0" height="2500" width="1600"></iframe>
+        <iframe src="../student/reciepts/<?php echo $_SESSION["img"]; ?>" frameborder="0" height="2500" width="1600"></iframe>
         </div>
                 </div>
 

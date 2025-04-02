@@ -133,7 +133,7 @@ function profile()
 
     <footer>
         
-        <label for="" class="cc">Copyright &#169 2023 Vidya. All rights reserved</label> 
+        <label for="" class="cc">Copyright &#169 2025 Vidya. All rights reserved</label> 
         <label for="" class="make">Devloped in India❤️</label>
         <!-- <a href="">
             <img src="icons/vidya.png" alt="" height="50" width="50" align="right" class="img">

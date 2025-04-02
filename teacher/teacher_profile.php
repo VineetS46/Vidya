@@ -185,7 +185,7 @@ if (array_key_exists("edit_profile", $_POST)) {
 </html>
 <footer>
         
-        <label for="" class="cc">&#169 Vidya||2023</label> 
+        <label for="" class="cc">&#169 Vidya||2025</label> 
         <label for="" class="make">Devloped in India❤️</label>
         <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSKkkFSHDKZFJrpNKpjVgDhKKLLSXjMqnsnPwTWDGZmHVLdPMGtXlBfjMTBNTCWnRVqmkBzm">
             <img align="right" src="icons/gmail.png" alt="" height="40" width="40" class="img">

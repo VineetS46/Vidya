@@ -148,6 +148,7 @@ rbac();
         $e_time=$row["e_time"];
         $message=$row["message"];
         $documents=$row["documents"];
+        // print_r($row);
         ?>
         <html>
             <body>
@@ -176,6 +177,9 @@ rbac();
     if(array_key_exists("show",$_POST))
     {
         $_SESSION["img"]=$_POST["img"];
+        // echo $_POST["img"];
+        // echo "<img src='../student/reciepts/".$_POST["img"]."' width='200px' height='200px'>";
+        // echo $_SESSION["img"];
         header("location:document.php");
     }
 
@@ -197,7 +201,7 @@ rbac();
             unlink($file);
             // $_SESSION["done"]=1;
         }
-        header("location:verification");
+        header("location:verification.php");
     }
 
     if(array_key_exists("reject",$_POST))
