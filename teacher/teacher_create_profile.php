@@ -321,7 +321,7 @@
                 //  echo "<script>alert('account created successfully')</script>";
                 unset($_SESSION["create_email"]);
                 echo "<script>alert('profile created successfully')</script>";
-                // header("location:T_Login.php");
+                 header("location:T_Login.php");
             }
             else
             {

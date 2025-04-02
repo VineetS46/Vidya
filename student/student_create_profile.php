@@ -19,7 +19,7 @@
     <div class="cont">
         <div class="f_box">
         <form action="" method="post" enctype="multipart/form-data">
-        <h1>before geting started lets create your profile first</h1><br>
+        <h1>Before getting started lets create your profile first</h1><br>
 
         <label>select your gender</label>
         <select name="gender">
@@ -88,7 +88,7 @@
                 if($file_size < 5242880)//5242880 byts = 5mb
                 {
                     $file_new_name=uniqid('',true).".".$file_ex;
-                    $file_destination="C:/xampp/htdocs/vidya/student/pro_pic/" . $file_new_name;
+                    $file_destination="../student/pro_pic/" . $file_new_name;
 
                     move_uploaded_file($file_tmp_name,$file_destination);
                     return $file_new_name;
